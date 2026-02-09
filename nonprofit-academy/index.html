@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The African Nonprofits Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=DM+Mono:wght@300;400;500&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f6f4f0;
+    color: #2a2a28;
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 72px 28px 80px;
+  }
+
+  /* --- Header --- */
+  .kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: #9a9590;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    color: #1a1a18;
+  }
+
+  .lede {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #5a5855;
+    margin-bottom: 40px;
+    max-width: 520px;
+  }
+
+  .instruction {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #9a9590;
+    padding: 14px 0;
+    border-top: 1px solid #e0ddd8;
+    border-bottom: 1px solid #e0ddd8;
+    margin-bottom: 36px;
+  }
+
+  /* --- Toggle --- */
+  .toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 36px;
+    position: relative;
+  }
+
+  .toggle::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e0ddd8;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    padding: 14px 16px;
+    background: none;
+    border: 1px solid #d5d1cc;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 400;
+    color: #9a9590;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .toggle-btn:focus-visible {
+    outline: 2px solid #2a2a28;
+    outline-offset: 2px;
+  }
+
+  .toggle-btn:first-child {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+  }
+
+  .toggle-btn:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+  .toggle-btn.on-a {
+    background: #2a2a28;
+    border-color: #2a2a28;
+    color: #f6f4f0;
+    font-weight: 500;
+  }
+
+  .toggle-btn.on-b {
+    background: #c0452a;
+    border-color: #c0452a;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* --- Fact Cards --- */
+  .facts { margin-top: 48px; }
+
+  .fact {
+    padding: 18px 0;
+    border-bottom: 1px solid #eae7e3;
+    cursor: pointer;
+    transition: opacity 0.5s ease, padding-left 0.4s ease;
+    position: relative;
+  }
+
+  .fact:focus-visible {
+    outline: 2px solid #2a2a28;
+    outline-offset: -2px;
+    border-radius: 2px;
+  }
+
+  .fact:first-child { border-top: 1px solid #eae7e3; }
+
+  .fact.fade { opacity: 0.22; }
+
+  .fact.salient { padding-left: 16px; }
+
+  .fact.salient::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    bottom: 18px;
+    width: 3px;
+    background: #2a2a28;
+    border-radius: 2px;
+    transition: all 0.4s ease;
+  }
+
+  .fact.anomaly {
+    background: #fdf6f4;
+    margin: 0 -20px;
+    padding: 20px 20px 20px 36px;
+    border-color: transparent;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .fact.anomaly::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    bottom: 20px;
+    width: 3px;
+    background: #c0452a;
+    border-radius: 2px;
+  }
+
+  .fact.tension {
+    background: #fdfaf2;
+    margin: 0 -20px;
+    padding: 20px 20px 20px 36px;
+    border-color: transparent;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .fact.tension::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    bottom: 20px;
+    width: 3px;
+    background: #b08a30;
+    border-radius: 2px;
+  }
+
+  .fact-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #bbb7b2;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fact-tag {
+    font-family: 'Caveat', cursive;
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+  }
+
+  .fact.anomaly .fact-tag {
+    display: inline;
+    color: #c0452a;
+  }
+
+  .fact.tension .fact-tag {
+    display: inline;
+    color: #b08a30;
+  }
+
+  .fact-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #2a2a28;
+    transition: color 0.5s ease;
+  }
+
+  .fact.fade .fact-text { color: #b0ada8; }
+
+  .fact-expand {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.4s ease;
+    margin-top: 0;
+  }
+
+  .fact-expand.open {
+    max-height: 300px;
+    margin-top: 12px;
+  }
+
+  .fact-expand-inner {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #7a7772;
+    font-style: italic;
+    padding-top: 12px;
+    border-top: 1px dashed #e0ddd8;
+  }
+
+  .fact.anomaly .fact-expand-inner {
+    color: #a0503e;
+    border-top-color: #e8cfc9;
+  }
+
+  .fact.tension .fact-expand-inner {
+    color: #8a7030;
+    border-top-color: #e0d8b8;
+  }
+
+  /* --- Sketch underlines --- */
+  .sketch-underline {
+    position: relative;
+    display: inline;
+  }
+
+  .sketch-underline::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    bottom: -3px;
+    height: 6px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='8'%3E%3Cpath d='M2 5 Q30 2 60 5 Q90 8 118 4' fill='none' stroke='%23c0452a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+    background-size: 120px 8px;
+    opacity: 0.5;
+  }
+
+  .sketch-underline-amber::after {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='8'%3E%3Cpath d='M2 5 Q30 2 60 5 Q90 8 118 4' fill='none' stroke='%23b08a30' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+    background-size: 120px 8px;
+  }
+
+  /* --- Questions block --- */
+  .questions-block {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 1px solid #e0ddd8;
+  }
+
+  .qb-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #9a9590;
+    margin-bottom: 16px;
+  }
+
+  .qb-item {
+    font-size: 16px;
+    line-height: 1.55;
+    color: #2a2a28;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: qIn 0.35s ease forwards;
+  }
+
+  .qb-item::before {
+    content: '\2192';
+    position: absolute;
+    left: 0;
+    color: #bbb7b2;
+  }
+
+  .qb-item.action-item {
+    color: #7a7772;
+    font-size: 15px;
+  }
+
+  .sketch-divider {
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    font-weight: 500;
+    color: #9a9590;
+    margin: 28px 0 12px;
+    text-align: center;
+  }
+
+  .click-hint {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    color: #b0ada8;
+    text-align: center;
+    padding: 8px 0 2px;
+    transition: opacity 0.5s ease;
+  }
+
+  /* --- Synopsis --- */
+  .synopsis {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px dashed #e0ddd8;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #5a5855;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: qIn 0.5s ease 0.4s forwards;
+  }
+
+  .synopsis .connector {
+    margin-top: 10px;
+    font-style: italic;
+    color: #7a7772;
+    font-size: 15px;
+  }
+
+  /* --- Observation --- */
+  .observation {
+    margin-top: 48px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .observation.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  .obs-text {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #5a5855;
+    font-style: italic;
+  }
+
+  /* --- Reveal --- */
+  .reveal {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid #e0ddd8;
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  .reveal.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  .reveal p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: #5a5855;
+    margin-bottom: 14px;
+  }
+
+  .reveal p:last-child { margin-bottom: 0; }
+  .reveal strong { font-weight: 500; color: #2a2a28; }
+  .reveal .accent { color: #c0452a; font-weight: 500; }
+
+  /* --- Print button --- */
+  .print-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #b0ada8;
+    background: none;
+    border: 1px solid #e0ddd8;
+    border-radius: 3px;
+    padding: 8px 14px;
+    cursor: pointer;
+    margin-top: 48px;
+    transition: all 0.3s ease;
+  }
+
+  .print-btn:hover {
+    color: #7a7772;
+    border-color: #c4c0bb;
+  }
+
+  .print-btn:focus-visible {
+    outline: 2px solid #2a2a28;
+    outline-offset: 2px;
+  }
+
+  /* --- Footer --- */
+  .footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid #eae7e3;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: #c4c0bb;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer a {
+    color: #b0ada8;
+    text-decoration: none;
+  }
+
+  .footer a:hover { color: #7a7772; }
+
+  @keyframes qIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 48px 20px 60px; }
+    h1 { font-size: 26px; }
+    .toggle-btn { font-size: 11px; padding: 12px 10px; }
+    .fact.anomaly, .fact.tension { margin: 0 -12px; padding: 16px 16px 16px 28px; }
+    .fact.anomaly::before, .fact.tension::before { left: 12px; }
+  }
+
+  /* --- Print mode --- */
+  .print-view { display: none; }
+
+  @media print {
+    .toggle, .instruction, .print-btn, .observation, .questions-block { display: none !important; }
+    .print-view { display: block !important; }
+    .facts { display: none !important; }
+    .reveal { display: block !important; opacity: 1 !important; }
+    body { background: #fff; font-size: 14px; }
+    .page { padding: 24px; max-width: 100%; }
+    .fact-print { page-break-inside: avoid; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid #ddd; }
+    .fact-print-num { font-family: 'DM Mono', monospace; font-size: 10px; color: #999; margin-bottom: 4px; }
+    .fact-print-text { font-size: 14px; font-weight: 500; margin-bottom: 8px; line-height: 1.5; }
+    .fact-print-frame { font-size: 12px; line-height: 1.5; margin-bottom: 4px; color: #555; }
+    .fact-print-label { font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; display: inline-block; margin-bottom: 2px; }
+    .fact-print-label.label-a { color: #2a2a28; }
+    .fact-print-label.label-b { color: #c0452a; }
+  }
+
+  body.print-mode .toggle,
+  body.print-mode .instruction,
+  body.print-mode .facts,
+  body.print-mode .questions-block,
+  body.print-mode .observation,
+  body.print-mode .print-btn { display: none !important; }
+
+  body.print-mode .print-view { display: block !important; }
+  body.print-mode .reveal { display: block !important; opacity: 1 !important; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="kicker">xplorable / relabel switch</div>
+
+  <h1>The African Nonprofits Academy</h1>
+
+  <p class="lede">A concept note proposes Africa's premier nonprofit training institution. Everyone agrees it's needed. Below are the facts.</p>
+
+  <div class="instruction">Toggle the frame. Same facts. Watch what moves.</div>
+
+  <div class="toggle" role="radiogroup" aria-label="Frame selection">
+    <button class="toggle-btn on-a" id="btn-a" role="radio" aria-pressed="true" onclick="switchFrame('A')" aria-label="Capacity Gap frame">Capacity Gap</button>
+    <button class="toggle-btn" id="btn-b" role="radio" aria-pressed="false" onclick="switchFrame('B')" aria-label="Coordination Failure frame">Coordination Failure</button>
+  </div>
+
+  <div class="facts" id="facts-container" role="list" aria-label="Scenario facts"></div>
+
+  <div class="questions-block" id="questions-block"></div>
+
+  <div class="observation" id="observation">
+    <p class="obs-text" id="obs-text"></p>
+  </div>
+
+  <div class="reveal" id="reveal">
+    <p>Under <strong>Capacity Gap</strong>, universal agreement is validation.</p>
+    <p>Under <span class="accent">Coordination Failure</span>, it is the symptom.</p>
+    <p>If everyone agrees something is needed but no one owns outcomes, you are not looking at consensus. You are looking at a coordination vacuum wearing consensus as a mask. The concept note itself contains the evidence: donor-driven frameworks, weak local context, inadequate sector insight. Those are infrastructure failures, not skills shortages. Training is one interface. The real bid is to become a reference institution.</p>
+  </div>
+
+  <!-- Print view: all facts with both readings -->
+  <div class="print-view" id="print-view"></div>
+
+  <button class="print-btn" onclick="togglePrintView()" id="print-toggle" aria-label="Toggle print view">print view</button>
+
+  <div class="footer">
+    <span>xlabs</span>
+    <span>crafted as a thinking instrument after <a href="https://ncase.me" target="_blank" rel="noopener noreferrer">ncase</a></span>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const FACTS = [
+  {
+    id: 1,
+    text: "Professionalise African nonprofits via training, research, and ecosystem development.",
+    frameA: "salient", frameB: "fade",
+    expandA: "The sector lacks formal qualifications. A dedicated academy closes the skills gap.",
+    expandB: "Training supply already exists. The question is why existing options have not produced the desired professionalisation."
+  },
+  {
+    id: 2,
+    text: "Systemic limitations named in the proposal: donor-driven frameworks not locally contextualised, and inadequate research or strategic insight.",
+    frameA: "fade", frameB: "salient",
+    expandA: "Context for the skills gap. More reason to build local capacity.",
+    expandB: "This is the buried lede. Donor-driven frameworks and missing sector insight are coordination problems, not training problems. The note diagnoses an infrastructure failure, then prescribes courses."
+  },
+  {
+    id: 3,
+    text: "Governance board: civil society, academia, business, philanthropy.",
+    frameA: "salient", frameB: "fade",
+    expandA: "Broad representation ensures legitimacy and reach.",
+    expandB: "When everyone governs, nobody owns outcomes. Who loses funding if it fails?"
+  },
+  {
+    id: 4,
+    text: "Four workstreams proposed: training delivery, scholarships, research and knowledge hub, ecosystem convening.",
+    frameA: "neutral", frameB: "tension",
+    expandA: "Comprehensive design covering the full spectrum of sector needs.",
+    expandB: "Four simultaneous businesses. Training has per-head economics; scholarships need endowment logic; research needs independence from funders; convening needs neutrality. Each fails differently. The word \"academy\" makes the scope collision invisible."
+  },
+  {
+    id: 5,
+    text: "Curriculum: financial management, governance, M&E, fundraising, compliance, leadership.",
+    frameA: "salient", frameB: "fade",
+    expandA: "Covers the full spectrum of nonprofit management competencies.",
+    expandB: "Built for supply-side logic: what can we teach? The demand question, what would nonprofits invest in if they were spending their own money, stays unasked."
+  },
+  {
+    id: 6,
+    text: "Knowledge hub planned: toolkits, process templates, case studies, sector benchmarks, organisational readiness assessments.",
+    frameA: "neutral", frameB: "salient",
+    expandA: "Useful reference materials to complement the training programmes.",
+    expandB: "This is the commons infrastructure. Shared benchmarks, shared templates, shared readiness signals. These reduce the need for every nonprofit to reinvent governance and finance from scratch. This item alone might be the real institution."
+  },
+  {
+    id: 7,
+    text: "Ecosystem role: codes of practice, ethical guidelines, self-regulatory frameworks, and cross-sector convening.",
+    frameA: "fade", frameB: "salient",
+    expandA: "Long-term sector development goals. Useful alongside the core training.",
+    expandB: "Standard-setting and convening are what reference institutions do. This is not a side objective. It is the legitimacy flywheel: research feeds benchmarks, benchmarks feed codes, codes improve governance, governance attracts funding, funding strengthens sector identity."
+  },
+  {
+    id: 8,
+    text: "\"Africa's premier institution.\" Continent-wide ambition. No pilot mentioned.",
+    frameA: "neutral", frameB: "tension",
+    expandA: "Continental scale matches continental challenge.",
+    expandB: "Continental ambition before a single cohort has enrolled. Legitimacy is being constructed through scope rather than evidence. The ambition may be right, but the sequencing reveals a framing choice, not a strategy."
+  },
+  {
+    id: 9,
+    text: "Funding from government, CSI, foundations, bilateral partners, membership fees.",
+    frameA: "neutral", frameB: "neutral",
+    expandA: "Multiple streams reduce dependency. Financial sustainability.",
+    expandB: "Each funder has different reporting requirements, timelines, and success metrics. The academy risks becoming a compliance machine for its own funders rather than an outcomes engine for nonprofits."
+  },
+  {
+    id: 10,
+    text: "Scholarships, bursary fund, and a YouTube show planned.",
+    frameA: "neutral", frameB: "fade",
+    expandA: "Access for under-resourced organisations. Media builds awareness.",
+    expandB: "Delivery channels designed before the value proposition is tested."
+  },
+  {
+    id: 11,
+    text: "Delivery partnership with Nonprofits Consulting Hub.",
+    frameA: "neutral", frameB: "neutral",
+    expandA: "Existing network accelerates rollout.",
+    expandB: "If NCH already consults nonprofits, what does the academy add? This may be repackaging existing services under a new institutional brand."
+  },
+  {
+    id: 12,
+    text: "Everyone agrees it is \"needed.\" No pilot exists. No theory of demand has been tested. No one has been named to own outcomes. The absence of all three, in the presence of universal agreement, is itself a finding.",
+    frameA: "fade", frameB: "anomaly",
+    expandA: "Consensus validates the concept. Next step: implementation.",
+    expandB: "Agreement without ownership is not consensus. It is a coordination failure wearing consensus as a mask. If this were truly needed with this level of agreement, someone would already be doing it. The fact that no one has, despite years of the same conversation, is not a gap waiting to be filled. It is evidence that the incentive structure does not reward anyone for owning the outcome. The absence is the data."
+  }
+];
+
+const QUESTIONS = {
+  A: [
+    "What skills are lacking?",
+    "How do we scale access to training?",
+    "How do we accredit and professionalise?",
+    "How do we fund it sustainably?"
+  ],
+  B: [
+    "Why has this not already emerged on its own?",
+    "Which of the four workstreams is the actual wedge?",
+    "Who pays versus who benefits, and are they the same people?",
+    "What does the current funding model actually reward?",
+    "Is the binding constraint skills, or the infrastructure that makes skills stick?"
+  ]
+};
+
+const ACTIONS = {
+  A: [
+    "Design courses and curricula",
+    "Secure diversified funding",
+    "Recruit multidisciplinary faculty",
+    "Build the knowledge hub"
+  ],
+  B: [
+    "Pick one role where stakes are measurable, then prove it works",
+    "Build the commons first: benchmarks, templates, readiness signals",
+    "Pilot with outcome ownership before scaling",
+    "Sequence the four businesses instead of launching them simultaneously",
+    "Design the coordination architecture before the curriculum"
+  ]
+};
+
+const SYNOPSIS = {
+  A: "The academy fills a training gap with a comprehensive, sector-led institution.",
+  B: "The academy is not primarily training. It is a bid to become shared infrastructure for a fragmented sector.",
+  connectorA: "Everyone agrees. That agreement is the starting point.",
+  connectorB: "Everyone agrees. That agreement, without anyone owning outcomes, is the thing that needs explaining."
+};
+
+// ============================================================
+// ENGINE
+// ============================================================
+
+let currentFrame = "A";
+let toggleCount = 0;
+let expandedFacts = new Set();
+let focusedFactIndex = -1;
+let hasClickedAnyFact = false;
+
+function switchFrame(frame) {
+  if (frame === currentFrame) return;
+  currentFrame = frame;
+  toggleCount++;
+  expandedFacts.clear();
+  focusedFactIndex = -1;
+
+  const btnA = document.getElementById("btn-a");
+  const btnB = document.getElementById("btn-b");
+  btnA.className = "toggle-btn" + (frame === "A" ? " on-a" : "");
+  btnB.className = "toggle-btn" + (frame === "B" ? " on-b" : "");
+  btnA.setAttribute("aria-pressed", frame === "A");
+  btnB.setAttribute("aria-pressed", frame === "B");
+
+  renderFacts();
+  renderQuestions();
+  renderObservation();
+  renderReveal();
+}
+
+function toggleFact(id) {
+  if (expandedFacts.has(id)) expandedFacts.delete(id);
+  else expandedFacts.add(id);
+  if (!hasClickedAnyFact) {
+    hasClickedAnyFact = true;
+  }
+  renderFacts();
+}
+
+function renderFacts() {
+  const c = document.getElementById("facts-container");
+
+  // Fixed order. No re-sorting.
+  c.innerHTML = FACTS.map((f, i) => {
+    const rel = currentFrame === "A" ? f.frameA : f.frameB;
+    const exp = expandedFacts.has(f.id);
+    const txt = currentFrame === "A" ? f.expandA : f.expandB;
+
+    let marginNote = "";
+    if (rel === "anomaly") marginNote = "\u2190 this one";
+    else if (rel === "tension") marginNote = "\u2190 scope collision";
+
+    let textContent = f.text;
+    if (rel === "anomaly") {
+      textContent = '<span class="sketch-underline">' + f.text + '</span>';
+    } else if (rel === "tension") {
+      textContent = '<span class="sketch-underline sketch-underline-amber">' + f.text + '</span>';
+    }
+
+    let card = `
+      <div class="fact ${rel}" role="listitem" tabindex="0"
+        onclick="toggleFact(${f.id})"
+        onkeydown="factKeyHandler(event, ${f.id})"
+        aria-expanded="${exp}"
+        aria-label="Fact ${i + 1}: ${f.text.replace(/"/g, '&quot;')}">
+        <div class="fact-num">
+          <span>${String(i + 1).padStart(2, '0')}</span>
+          <span class="fact-tag">${marginNote}</span>
+        </div>
+        <div class="fact-text">${textContent}</div>
+        <div class="fact-expand ${exp ? 'open' : ''}">
+          <div class="fact-expand-inner">${txt}</div>
+        </div>
+      </div>
+    `;
+
+    if (i === 0 && !hasClickedAnyFact) {
+      card += '<div class="click-hint">click any fact to read its frame-dependent interpretation</div>';
+    }
+
+    return card;
+  }).join("");
+}
+
+function renderQuestions() {
+  const b = document.getElementById("questions-block");
+  const qs = QUESTIONS[currentFrame];
+  const as = ACTIONS[currentFrame];
+  const label = currentFrame === "A" ? "Capacity Gap" : "Coordination Failure";
+  const synopsis = currentFrame === "A" ? SYNOPSIS.A : SYNOPSIS.B;
+  const connector = currentFrame === "A" ? SYNOPSIS.connectorA : SYNOPSIS.connectorB;
+
+  b.innerHTML = `
+    <div class="qb-label">Under "${label}" you ask:</div>
+    ${qs.map((q, i) => `<div class="qb-item" style="animation-delay: ${i * 0.08}s">${q}</div>`).join("")}
+    <div class="sketch-divider">so you ...</div>
+    ${as.map((a, i) => `<div class="qb-item action-item" style="animation-delay: ${(i + qs.length) * 0.08}s">${a}</div>`).join("")}
+    <div class="synopsis">
+      ${synopsis}
+      <div class="connector">${connector}</div>
+    </div>
+  `;
+}
+
+function renderObservation() {
+  const el = document.getElementById("observation");
+  const t = document.getElementById("obs-text");
+  if (toggleCount === 0) { el.classList.remove("visible"); return; }
+  el.classList.add("visible");
+  if (toggleCount === 1) t.textContent = "Same facts. Different weight.";
+  else if (toggleCount === 2) t.textContent = "Nothing was added. Nothing was removed.";
+  else t.textContent = "The frame chose for you. It always does.";
+}
+
+function renderReveal() {
+  const el = document.getElementById("reveal");
+  if (toggleCount >= 2) el.classList.add("visible");
+  else el.classList.remove("visible");
+}
+
+// --- Keyboard navigation ---
+function factKeyHandler(event, id) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    toggleFact(id);
+  }
+}
+
+document.addEventListener("keydown", function(e) {
+  const facts = document.querySelectorAll(".fact");
+  if (!facts.length) return;
+
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+    e.preventDefault();
+    if (e.key === "ArrowDown") {
+      focusedFactIndex = Math.min(focusedFactIndex + 1, facts.length - 1);
+    } else {
+      focusedFactIndex = Math.max(focusedFactIndex - 1, 0);
+    }
+    facts[focusedFactIndex].focus();
+  }
+});
+
+// --- Print view ---
+function renderPrintView() {
+  const pv = document.getElementById("print-view");
+  pv.innerHTML = `
+    <div style="margin-top: 36px; padding-top: 24px; border-top: 1px solid #e0ddd8;">
+      <div style="font-family: 'DM Mono', monospace; font-size: 11px; color: #9a9590; margin-bottom: 24px;">
+        Print view: all facts with both frame readings
+      </div>
+      ${FACTS.map((f, i) => `
+        <div class="fact-print">
+          <div class="fact-print-num">${String(i + 1).padStart(2, '0')}</div>
+          <div class="fact-print-text">${f.text}</div>
+          <div class="fact-print-frame">
+            <span class="fact-print-label label-a">Capacity Gap:</span> ${f.expandA}
+          </div>
+          <div class="fact-print-frame">
+            <span class="fact-print-label label-b">Coordination Failure:</span> ${f.expandB}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function togglePrintView() {
+  const body = document.body;
+  const btn = document.getElementById("print-toggle");
+  if (body.classList.contains("print-mode")) {
+    body.classList.remove("print-mode");
+    btn.textContent = "print view";
+  } else {
+    renderPrintView();
+    body.classList.add("print-mode");
+    btn.textContent = "interactive view";
+  }
+}
+
+// --- Init ---
+renderFacts();
+renderQuestions();
+</script>
+
+</body>
+</html>
