@@ -141,7 +141,7 @@
 
   .fact:first-child { border-top: 1px solid #eae7e3; }
 
-  .fact.fade { opacity: 0.22; }
+  .fact.fade { opacity: 0.55; }
 
   .fact.salient { padding-left: 16px; }
 
@@ -321,7 +321,7 @@
   }
 
   .qb-item.action-item {
-    color: #7a7772;
+    color: #5a5855;
     font-size: 15px;
   }
 
@@ -337,7 +337,7 @@
   .click-hint {
     font-family: 'Caveat', cursive;
     font-size: 15px;
-    color: #b0ada8;
+    color: #b08a30;
     text-align: center;
     padding: 8px 0 2px;
     transition: opacity 0.5s ease;
@@ -488,8 +488,7 @@
   body.print-mode .instruction,
   body.print-mode .facts,
   body.print-mode .questions-block,
-  body.print-mode .observation,
-  body.print-mode .print-btn { display: none !important; }
+  body.print-mode .observation { display: none !important; }
 
   body.print-mode .print-view { display: block !important; }
   body.print-mode .reveal { display: block !important; opacity: 1 !important; }
@@ -523,7 +522,7 @@
   <div class="reveal" id="reveal">
     <p>Under <strong>Capacity Gap</strong>, universal agreement is validation.</p>
     <p>Under <span class="accent">Coordination Failure</span>, it is the symptom.</p>
-    <p>If everyone agrees something is needed but no one owns outcomes, you are not looking at consensus. You are looking at a coordination vacuum wearing consensus as a mask. The concept note itself contains the evidence: donor-driven frameworks, weak local context, inadequate sector insight. Those are infrastructure failures, not skills shortages. Training is one interface. The real bid is to become a reference institution.</p>
+    <p>If everyone agrees something is needed but no one owns outcomes, that is not consensus. That is a coordination gap dressed up as agreement. The concept note itself contains the evidence: donor-driven frameworks, weak local context, inadequate sector insight. Those are infrastructure failures, not skills shortages. Training is one entry point. The real bid is to become a reference institution.</p>
   </div>
 
   <!-- Print view: all facts with both readings -->
@@ -556,7 +555,7 @@ const FACTS = [
     text: "Systemic limitations named in the proposal: donor-driven frameworks not locally contextualised, and inadequate research or strategic insight.",
     frameA: "fade", frameB: "salient",
     expandA: "Context for the skills gap. More reason to build local capacity.",
-    expandB: "This is the buried lede. Donor-driven frameworks and missing sector insight are coordination problems, not training problems. The note diagnoses an infrastructure failure, then prescribes courses."
+    expandB: "This is one of the most important lines in the document, and it is easy to miss. Donor-driven frameworks and missing sector insight are coordination problems, not training problems. The note diagnoses an infrastructure failure, then prescribes courses."
   },
   {
     id: 3,
@@ -570,7 +569,7 @@ const FACTS = [
     text: "Four workstreams proposed: training delivery, scholarships, research and knowledge hub, ecosystem convening.",
     frameA: "neutral", frameB: "tension",
     expandA: "Comprehensive design covering the full spectrum of sector needs.",
-    expandB: "Four simultaneous businesses. Training has per-head economics; scholarships need endowment logic; research needs independence from funders; convening needs neutrality. Each fails differently. The word \"academy\" makes the scope collision invisible."
+    expandB: "Four simultaneous businesses. Training has per-head economics; scholarships need endowment; research needs independence from funders; convening needs neutrality. Each fails differently. The word \"academy\" compresses them into one proposal, making the overlap invisible. That is the scope collision: distinct activities with incompatible success conditions packaged as a single initiative."
   },
   {
     id: 5,
@@ -598,14 +597,14 @@ const FACTS = [
     text: "\"Africa's premier institution.\" Continent-wide ambition. No pilot mentioned.",
     frameA: "neutral", frameB: "tension",
     expandA: "Continental scale matches continental challenge.",
-    expandB: "Continental ambition before a single cohort has enrolled. Legitimacy is being constructed through scope rather than evidence. The ambition may be right, but the sequencing reveals a framing choice, not a strategy."
+    expandB: "Continental ambition before a single cohort has enrolled. The credibility is coming from how big the vision is, not from what has been tested. The ambition may be right, but the sequencing reveals a framing choice, not a strategy."
   },
   {
     id: 9,
     text: "Funding from government, CSI, foundations, bilateral partners, membership fees.",
     frameA: "neutral", frameB: "neutral",
     expandA: "Multiple streams reduce dependency. Financial sustainability.",
-    expandB: "Each funder has different reporting requirements, timelines, and success metrics. The academy risks becoming a compliance machine for its own funders rather than an outcomes engine for nonprofits."
+    expandB: "Each funder has different reporting requirements, timelines, and success metrics. The academy risks spending more energy satisfying its own funders than delivering results for nonprofits."
   },
   {
     id: 10,
@@ -626,7 +625,7 @@ const FACTS = [
     text: "Everyone agrees it is \"needed.\" No pilot exists. No theory of demand has been tested. No one has been named to own outcomes. The absence of all three, in the presence of universal agreement, is itself a finding.",
     frameA: "fade", frameB: "anomaly",
     expandA: "Consensus validates the concept. Next step: implementation.",
-    expandB: "Agreement without ownership is not consensus. It is a coordination failure wearing consensus as a mask. If this were truly needed with this level of agreement, someone would already be doing it. The fact that no one has, despite years of the same conversation, is not a gap waiting to be filled. It is evidence that the incentive structure does not reward anyone for owning the outcome. The absence is the data."
+    expandB: "Agreement without ownership is not consensus. It is a coordination gap dressed up as agreement. If this were truly needed with this level of support, someone would already be doing it. The fact that no one has, despite years of the same conversation, is not a gap waiting to be filled. It may be evidence that the incentive structure does not reward anyone for owning the outcome. The absence is the data."
   }
 ];
 
